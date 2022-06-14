@@ -1,19 +1,23 @@
-import {html, css, LitElement} from 'lit';
+import { html, css, LitElement } from "lit";
 
 export class SimpleGreeting extends LitElement {
-  static styles = css`p { color: blue }`;
+  static styles = css`
+    p {
+      color: blue;
+    }
+  `;
 
   static properties = {
-    name: {type: String},
+    name: { type: String },
   };
 
   constructor() {
     super();
-    this.name = 'Somebody';
+    this.name = "Carbon";
   }
 
   render() {
     return html`<p>Hello, ${this.name}!</p>`;
   }
 }
-customElements.define('simple-greeting', SimpleGreeting);
+customElements.define("simple-greeting", SimpleGreeting);
