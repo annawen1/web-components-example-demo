@@ -1,7 +1,8 @@
-import {html, css, LitElement} from 'lit';
+import { html, css, LitElement } from "lit";
 
 export class MyCustomModal extends LitElement {
-  static styles = css`/* The Modal (background) */
+  static styles = css`
+    /* The Modal (background) */
     .modal {
       display: none;
       position: fixed;
@@ -12,7 +13,7 @@ export class MyCustomModal extends LitElement {
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0, 0, 0, 0.4);
     }
     /* Modal Content */
     .modal-content {
@@ -22,20 +23,33 @@ export class MyCustomModal extends LitElement {
       padding: 0;
       border: 1px solid #888;
       width: 80%;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
       -webkit-animation-name: animatetop;
       -webkit-animation-duration: 0.4s;
       animation-name: animatetop;
-      animation-duration: 0.4s
+      animation-duration: 0.4s;
     }
     /* Add Animation */
     @-webkit-keyframes animatetop {
-      from {top:-300px; opacity:0}
-      to {top:0; opacity:1}
+      from {
+        top: -300px;
+        opacity: 0;
+      }
+      to {
+        top: 0;
+        opacity: 1;
+      }
     }
     @keyframes animatetop {
-      from {top:-300px; opacity:0}
-      to {top:0; opacity:1}
+      from {
+        top: -300px;
+        opacity: 0;
+      }
+      to {
+        top: 0;
+        opacity: 1;
+      }
     }
     /* The Close Button */
     .close {
@@ -55,7 +69,11 @@ export class MyCustomModal extends LitElement {
       background-color: #2644c6;
       color: white;
     }
-    .modal-body {padding: 2px 16px; margin: 20px 2px}`;
+    .modal-body {
+      padding: 2px 16px;
+      margin: 20px 2px;
+    }
+  `;
 
   constructor() {
     super();
@@ -67,18 +85,32 @@ export class MyCustomModal extends LitElement {
     this._modal = this.shadowRoot.querySelector(".modal");
   }
 
-  handleOpen() {
-    if(!this._modalVisible){
+  handleOpen(event) {
+    if (!this._modalVisible) {
       this._modalVisible = true;
       this._modal.style.display = "block";
     }
+    this.dispatchEvent(
+      new CustomEvent("open-modal-event", {
+        bubbles: true,
+        composed: true,
+        cancelable: false,
+      })
+    );
   }
 
-  handleClose() {
-    if(this._modalVisible){
+  handleClose(event) {
+    if (this._modalVisible) {
       this._modalVisible = false;
       this._modal.style.display = "none";
     }
+    this.dispatchEvent(
+      new CustomEvent("close-modal-event", {
+        bubbles: true,
+        composed: true,
+        cancelable: false,
+      })
+    );
   }
 
   render() {
@@ -97,4 +129,4 @@ export class MyCustomModal extends LitElement {
     </div>`;
   }
 }
-customElements.define('my-custom-modal', MyCustomModal);
+customElements.define("my-custom-modal", MyCustomModal);
